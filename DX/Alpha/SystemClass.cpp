@@ -103,10 +103,10 @@ bool SystemClass::Frame()
 	bool result;
 
 	// ESC 누르면 종료
-	if (input->GetKeyDown(VK_ESCAPE))
-	{
-		return false;
-	}
+	//if (input->GetKeyDown(VK_ESCAPE))
+	//{
+	//	return false;
+	//}
 
 	// 그래픽 작업 실행
 	result = graphics->Frame();
@@ -199,7 +199,8 @@ void SystemClass::InitWindows(int& screenWidth, int& screenHeight)
 	SetForegroundWindow(hwnd);
 	SetFocus(hwnd);
 
-	ShowCursor(false);
+	//ShowCursor(false);
+	ShowCursor(true);
 }
 
 void SystemClass::ShutdownWindows()
