@@ -2,6 +2,7 @@
 #include "ColorShaderClass.h"
 #include <fstream>
 #include <iostream>
+#include "TextureShaderClass.h"
 
 ColorShaderClass::ColorShaderClass()
 {
@@ -14,6 +15,7 @@ ColorShaderClass::ColorShaderClass(const ColorShaderClass& other)
 ColorShaderClass::~ColorShaderClass()
 {
 }
+
 
 bool ColorShaderClass::Init(ID3D11Device* device, HWND hwnd)
 {

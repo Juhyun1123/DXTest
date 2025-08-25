@@ -4,6 +4,7 @@
 #include "CameraClass.h"
 #include "ModelClass.h"
 #include "ColorshaderClass.h"
+#include "TextureShaderClass.h"
 
 GraphicsClass::GraphicsClass()
 {
@@ -47,12 +48,12 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
         return false;
     }
 
-    if (!Model->Init(D3D->GetDevice()))
+    if (!Model->Init(D3D->GetDevice(), L"./Textures/WoodCrate01.dds"))
     {
         MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
         return false;
     }
-
+    /*
     ColorShader = new ColorShaderClass;
     if (!ColorShader)
     {
@@ -64,19 +65,39 @@ bool GraphicsClass::Init(int screenWidth, int screenHeight, HWND hwnd)
         MessageBox(hwnd, L"Could not initialize the color shader object.", L"Error", MB_OK);
         return false;
     }
+    */
 
+    TextureShader = new TextureShaderClass;
+    if (!TextureShader)
+    {
+        return false;
+    }
+
+    if (!TextureShader->Init(D3D->GetDevice(), hwnd))
+    {
+        MessageBox(hwnd, L"Could not initialize the color shader object.", L"Error", MB_OK);
+        return false;
+    }
 
     return true;
 }
 
 void GraphicsClass::Shutdown()
 {
-    // ColorShader 객체 반환
-    if (ColorShader)
+    //// ColorShader 객체 반환
+    //if (ColorShader)
+    //{
+    //    ColorShader->Shutdown();
+    //    delete ColorShader;
+    //    ColorShader = nullptr;
+    //}
+
+    // TextureShader 객체 반환
+    if (TextureShader)
     {
-        ColorShader->Shutdown();
-        delete ColorShader;
-        ColorShader = nullptr;
+        TextureShader->Shutdown();
+        delete TextureShader;
+        TextureShader = nullptr;
     }
 
     // Model 객체 반환
@@ -130,9 +151,9 @@ bool GraphicsClass::Render()
     // 모델 정점과 인덱스 버퍼를 그래픽 파이프 라인에 배치해 드로잉 준비
     Model->Render(D3D->GetDeviceContext());
 
-    // 색상 쉐이더를 사용해 모델링 렌더링
-    if (!ColorShader->Render(D3D->GetDeviceContext(),
-        Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix))
+    // 텍스처 쉐이더를 사용해 모델링 렌더링
+    if (!TextureShader->Render(D3D->GetDeviceContext(),
+        Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, Model->GetTexture()))
     {
         return false;
     }

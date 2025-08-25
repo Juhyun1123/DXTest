@@ -102,12 +102,6 @@ bool SystemClass::Frame()
 {
 	bool result;
 
-	// ESC 누르면 종료
-	//if (input->GetKeyDown(VK_ESCAPE))
-	//{
-	//	return false;
-	//}
-
 	// 그래픽 작업 실행
 	result = graphics->Frame();
 	if (!result)

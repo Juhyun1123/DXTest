@@ -2,8 +2,6 @@
 #ifndef __COLORSHADERCLAS_H_
 #define __COLORSHADERCLASS_H_
 
-#include "stdafx.h"
-
 class ColorShaderClass
 {
 

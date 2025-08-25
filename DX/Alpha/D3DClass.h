@@ -35,6 +35,7 @@ private:
 	ID3D11Device* device = nullptr;
 	ID3D11DeviceContext* deviceContext;
 	ID3D11RenderTargetView* renderTargetView = nullptr;
+
 	ID3D11Texture2D* depthStencilBuffer = nullptr;
 	ID3D11DepthStencilState* depthStencilState = nullptr;
 	ID3D11DepthStencilView* depthStencilView = nullptr;
